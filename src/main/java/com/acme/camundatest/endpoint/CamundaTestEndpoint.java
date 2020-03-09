@@ -17,11 +17,8 @@ public class CamundaTestEndpoint {
     
     @RequestMapping(value = {"/save", "/save/{way}"})
     public String startProcess(@PathVariable Optional<String> way) {
-//        if (way.isEmpty()) {
-//            return "bad job";
-//        }
         VariableMap variables = Variables.createVariables();
-        variables.put("task", way.get());
+        variables.put("task", way.isPresent() ? way.get() : "");
         runtimeService.startProcessInstanceByKey("Process_0ts9hy7", variables);
         return "good job";
     }
